@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Can Opener Rebuild</title>
+	<link rel="stylesheet" type="text/css" href="styles/styles.css">
+</head>
+<body>
+	<table>
+		<tr>
+			<td>
+				<div class="outer-wrapper">
+					<div class="inner-wrapper">
+						<embed src="images/logo.svg" id="logo"></embed>
+						<embed src="images/can.svg" id="can"></embed>
+						<form autocomplete="off">
+							<select id="topic" name="topic" required="yes">
+								<option value="default">Choose a Topic</option>
+								<option value="abortion">Abortion</option>
+								<option value="gun_control">Gun Control</option>
+							</select>
+							<select id="side" name="side" required="yes">
+								<option value="default">Choose Your Side</option>
+							</select>
+							<button id="submit">Open Your Can!</button>
+						</form>
+					</div>
+					<button id="suggestions">Topic Suggestions?</button>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<script src="scripts/main.js"></script>
+</body>
+</html>

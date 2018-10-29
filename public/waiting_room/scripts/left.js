@@ -7,10 +7,6 @@ var status = '';
 window.onbeforeunload = removeFromQueue;
 window.setInterval(() => getPartner(), 5000);
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 function removeFromQueue() {
 	//delete the pathname from the queue it is in
 	var query = `query DelNum($topicValue: String!, $sideValue: String!, $roomValue: String!) {
@@ -38,7 +34,7 @@ function removeFromQueue() {
 }
 
 function getPartner() {
-	/* Checks to see if it is in the queue every 5 seconds. If not in queue, must be paired up. Move on to room. */
+	/* Checks to see if it is in the queue. If not in queue, must be paired up. Move on to room. */
 	var query = `query GetPartner($topicValue: String!, $sideValue: String!, $roomValue: String!) {
 		getPartner(topic: $topicValue, side: $sideValue, room: $roomValue)
 	}`;

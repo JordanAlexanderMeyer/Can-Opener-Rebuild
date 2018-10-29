@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1700" height="275" viewBox="200 612.5 1700 275">
+  <metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c140 79.160451, 2017/05/06-01:08:21        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""/>
+   </rdf:RDF>
+</x:xmpmeta>
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                           
+<?xpacket end="w"?></metadata>
+<defs>
+    <style>
+      .cls-1 {
+        stroke: #000;
+        stroke-linejoin: round;
+        stroke-width: 3px;
+        font-size: 300px;
+        filter: url(#filter);
+        fill: #a61f1f;
+        text-anchor: middle;
+        font-family: Phosphate-Inline, Phosphate;
+      }
+    </style>
+    <filter id="filter" x="140" y="641" width="1810" height="238" filterUnits="userSpaceOnUse">
+      <feOffset result="offset" dx="-13.5" dy="23.383" in="SourceAlpha"/>
+      <feGaussianBlur result="blur"/>
+      <feFlood result="flood" flood-color="#818181"/>
+      <feComposite result="composite" operator="in" in2="blur"/>
+      <feBlend result="blend" in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g style="fill: #a61f1f; filter: url(#filter)">
+    <text id="Can_Opener" data-name="Can Opener" class="cls-1" x="1044.372" y="849.913" style="stroke: inherit; filter: none; fill: inherit"><tspan x="1044.372">Can Opener</tspan></text>
+  </g>
+  <use xlink:href="#Can_Opener" style="stroke: #000; filter: none; fill: none"/>
+</svg>

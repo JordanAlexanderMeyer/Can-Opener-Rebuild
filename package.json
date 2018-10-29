@@ -1,0 +1,25 @@
+{
+  "name": "rebuild",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JordanAlexanderMeyer/Can-Opener-Rebuild.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JordanAlexanderMeyer/Can-Opener-Rebuild/issues"
+  },
+  "homepage": "https://github.com/JordanAlexanderMeyer/Can-Opener-Rebuild#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-graphql": "^0.6.12",
+    "graphql": "^14.0.2"
+  }
+}

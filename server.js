@@ -25,8 +25,9 @@ var schema = buildSchema(`
   type Query {
     getNum(topic: String!, side: String!): [String],
     delNum(topic: String!, side: String!, room: String!): String,
-    displayQueue: [[String]]
-    clearQueue: [[String]]
+    displayQueue: [[String]],
+    clearQueue: [[String]],
+    getPartner(topic: String!, side: String!, room: String!): String
   }
 `);
 
@@ -145,6 +146,48 @@ var root = {
       }
     } else {
       console.log('delNum error');
+    }
+    return output;
+  },
+
+  getPartner: function({topic, side, room}) {
+    var output = ''
+    // Abortion
+    if (topic == 'abortion') {
+      if (side == 'pro_life') {
+        if (abortionAgaQueue.includes(room)) {
+          output = "unpaired";
+        } else {
+          output = "paired.";
+        }
+      } else if (side == 'pro_choice') {
+        if (abortionForQueue.includes(room)) {
+          output = "unpaired.";
+        } else {
+          output = "paired";
+        }
+      } else {
+        console.log('getPartner error');
+      }
+    // Gun Control
+    } else if (topic == 'gun_control') {
+      if (side == 'for') {
+        if (gunForQueue.includes(room)) {
+          output = "unpaired";
+        } else {
+          output = "paired";
+        }
+      } else if (side == 'against') {
+        if (gunAgaQueue.includes(room)) {
+          output = "unpaired";
+        } else {
+          output = "paired";
+        }
+      } else {
+        console.log('getPartner error');
+      }
+    } else {
+      console.log('getPartner error');
     }
     return output;
   },

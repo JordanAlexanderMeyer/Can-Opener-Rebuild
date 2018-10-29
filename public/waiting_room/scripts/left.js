@@ -5,6 +5,8 @@ var roomValue = urlParams.get('room');
 var status = '';
 
 window.onbeforeunload = removeFromQueue;
+
+//runs function every 5 seconds
 window.setInterval(() => getPartner(), 5000);
 
 function removeFromQueue() {
@@ -34,7 +36,7 @@ function removeFromQueue() {
 }
 
 function getPartner() {
-	/* Checks to see if it is in the queue. If not in queue, must be paired up. Move on to room. */
+	//checks to see if it is in the queue. If not in queue, must be paired up. Move on to room.
 	var query = `query GetPartner($topicValue: String!, $sideValue: String!, $roomValue: String!) {
 		getPartner(topic: $topicValue, side: $sideValue, room: $roomValue)
 	}`;

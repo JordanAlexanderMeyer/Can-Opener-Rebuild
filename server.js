@@ -158,11 +158,11 @@ var root = {
         if (abortionAgaQueue.includes(room)) {
           output = "unpaired";
         } else {
-          output = "paired.";
+          output = "paired";
         }
       } else if (side == 'pro_choice') {
         if (abortionForQueue.includes(room)) {
-          output = "unpaired.";
+          output = "unpaired";
         } else {
           output = "paired";
         }

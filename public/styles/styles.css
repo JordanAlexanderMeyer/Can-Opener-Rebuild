@@ -35,7 +35,7 @@ div.outer-wrapper {
 div.inner-wrapper {
 	width: 800px;
 }
-embed, img {
+embed {
 	display: block;
 	width: 800px;
 	margin-left: auto;

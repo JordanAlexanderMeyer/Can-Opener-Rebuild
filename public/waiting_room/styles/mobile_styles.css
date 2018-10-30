@@ -20,6 +20,7 @@ h3 {
 }
 li {
 	font-size: 20px;
+	width: 100%;
 	font-family: Courier;
 }
 div.text {
@@ -34,9 +35,6 @@ ul {
 	margin-right: auto;
 	list-style: none;
 	padding-left: 0;
-}
-li {
-	width: 100%
 }
 img {
 	position: absolute;
@@ -72,6 +70,7 @@ img {
 iframe {
 	width: 100%;
 	border: 5px double #a61f1f;
+	overflow: scroll;
 }
 #article {
 	min-height: 400px;

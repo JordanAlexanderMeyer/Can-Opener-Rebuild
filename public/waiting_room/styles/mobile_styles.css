@@ -70,10 +70,10 @@ img {
 iframe {
 	width: 100%;
 	border: 5px double #a61f1f;
-	overflow: scroll;
 }
 #article {
 	min-height: 400px;
+	max-width: 100%;
 }
 .content_header {
 	/* positioning */

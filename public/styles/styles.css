@@ -1,3 +1,12 @@
+/* removes safari bubble select boxes */
+* {
+	-webkit-appearance:none;
+}
+input:focus { 
+    outline: none !important;
+    border-color: #719ECE;
+    box-shadow: 0 0 10px #719ECE;
+}
 html, body {
 	height: 100%;
 	width: 100%
@@ -50,15 +59,20 @@ select {
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 50px;
+	text-align: center;
+	text-align-last: center;
 
 	/* design */
 	background-color: transparent;
 	border: 0;
 	font-size: 25px;
 	font-family: Courier;
+	padding: 5px;
+	border-radius: 10px;
 	color: #e3e2ee;
 	width: 300px;
 }
+/* Removing focus bars */
 *:focus {
 	outline: none;
 }
@@ -76,7 +90,7 @@ select {
 	width: 300px;
 	border-radius: 20px;
 }
-#submit:hover {
+#submit:hover, select:hover {
 	cursor: pointer;
 	background-color: #730a0a;
 }

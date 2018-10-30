@@ -73,9 +73,6 @@ iframe {
 	width: 100%;
 	border: 5px double #a61f1f;
 }
-#article {
-	min-height: 400px;
-}
 .content_header {
 	/* positioning */
 	width: 100%;

@@ -1,6 +1,5 @@
 /* removes safari bubble select boxes */
 * {
-	border: 1px solid red;
 	-webkit-appearance:none;
 }
 html, body {

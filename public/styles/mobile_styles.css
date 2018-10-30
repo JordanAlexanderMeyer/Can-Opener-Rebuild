@@ -1,11 +1,7 @@
 /* removes safari bubble select boxes */
 * {
+	border: 1px solid red;
 	-webkit-appearance:none;
-}
-input:focus { 
-    outline: none !important;
-    border-color: #719ECE;
-    box-shadow: 0 0 10px #719ECE;
 }
 html, body {
 	height: 100%;
@@ -30,14 +26,12 @@ div {
 	margin-right: auto;
 }
 div.outer-wrapper {
-	width: 800px;
-}
-div.inner-wrapper {
-	width: 800px;
+	width: 100%;
 }
 embed {
 	display: block;
-	width: 800px;
+	width: 100%;
+	max-width: 500px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 50px;
@@ -48,29 +42,32 @@ embed {
 }
 form {
 	position: absolute;
-	margin-left: auto;
-	margin-right: auto;
-	width: 800px;
-	transform: translate(0,-350px);
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	width: 100%;
+	max-width: 500px;
+	transform: translateY(-20%);
 }
 select {
 	/* positioning */
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	margin-bottom: 50px;
+	margin-bottom: 10px;
 	text-align: center;
 	text-align-last: center;
 
 	/* design */
-	background-color: transparent;
+	background-color: #730a0a;
 	border: 0;
 	font-size: 25px;
 	font-family: "New Courier", Courier, monospace;
-	padding: 5px;
+	padding: 10px;
 	border-radius: 10px;
 	color: #e3e2ee;
-	width: 300px;
+	width: 80%;
 }
 /* Removing focus bars */
 *:focus {
@@ -82,44 +79,18 @@ select {
 	margin-right: auto;
 
 	/* design */
-	background-color: transparent;
+	background-color: #730a0a;
 	border: 3px solid #e3e2ee;
 	font-size: 35px;
 	font-family: Courier;
 	color: #e3e2ee;
-	width: 300px;
+	width: 80%;
 	border-radius: 20px;
 }
-#submit:hover, select:hover {
-	cursor: pointer;
-	background-color: #730a0a;
+#submit:active, select:active {
+	background-color: #a61f1f;
 }
 #submit:disabled {
 	opacity: 0.6;
 	cursor: not-allowed;
-}
-#suggestions {
-	/* positioning */
-	position: absolute;
-	right: 20px;
-	bottom: 30px;
-
-	/* design */
-	background-color: #a61f1f;
-	border: 0;
-	font-size: 15px;
-	font-family: Courier;
-	color: #e3e2ee;
-	width: 200px;
-	border-radius: 5px;
-	box-shadow: -10px 5px #818181;
-}
-#suggestions:hover {
-	cursor: pointer;
-	background-color: #730a0a;
-}
-#suggestions:active {
-	background-color: #730a0a;
-	box-shadow: -10px 5px #818181;
-	transform: translate(-4px, 4px);
 }

@@ -73,7 +73,7 @@ iframe {
 }
 #article {
 	/* Trying to prevent iframe from resizing weird. Hasn't worked */
-	height: 400px;
+	min-height: 400px;
 	overflow: scroll;
 }
 .content_header {

@@ -6,10 +6,10 @@ html, body {
 	width: 100%
 	margin: 0;
 	padding: 0;
+	overflow-y: auto !important;
 }
 body {
 	background-color: #e3e2ee;
-	overflow: scroll;
 }
 h1 {
 	font-family: 'Bungee Shade', cursive;
@@ -74,7 +74,7 @@ iframe, embed {
 #article {
 	/* Trying to prevent iframe from resizing weird. Hasn't worked */
 	min-height: 400px;
-	overflow: scroll;
+	overflow: visible !important;
 }
 .content_header {
 	/* positioning */

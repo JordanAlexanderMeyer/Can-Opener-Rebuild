@@ -41,7 +41,8 @@ function pressedSubmit() {
 }
 function roomChooser(topicValue, sideValue) {
 	if (status == 'paired') {
-		location.href = `call_room/index.html?topic=${topicValue}&side=${sideValue}&room=${roomValue}`;
+		//location.href = `call_room/index.html?topic=${topicValue}&side=${sideValue}&room=${roomValue}`;
+		location.href = `https://appr.tc/r/${roomValue}`;
 	} else if (status == 'unpaired') {
 		location.href = `waiting_room/${topicValue}.html?topic=${topicValue}&side=${sideValue}&room=${roomValue}`;
 	} else {

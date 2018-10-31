@@ -67,15 +67,13 @@ img {
 .content {
 	display: inline-block;
 }
-iframe {
+iframe, embed {
 	width: 100%;
 	border: 5px double #a61f1f;
 }
 #article {
 	/* Trying to prevent iframe from resizing weird. Hasn't worked */
-	display: block;
-	height: 300px;
-	max-width: 400px;
+	min-height: 400px;
 }
 .content_header {
 	/* positioning */

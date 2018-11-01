@@ -30,7 +30,7 @@ body {
 }
 #inner {
 	width: 90%;
-	height: 350px;
+	height: 400px;
 	min-height: 50%;
 	position: relative;
 	display: flex;

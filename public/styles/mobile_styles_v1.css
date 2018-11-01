@@ -30,7 +30,8 @@ body {
 }
 #inner {
 	width: 90%;
-	height: 50%;
+	height: 350px;
+	min-height: 50%;
 	position: relative;
 	display: flex;
 	justify-content: center;

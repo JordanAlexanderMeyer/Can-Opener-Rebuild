@@ -7,7 +7,7 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
 	
-	<link rel="stylesheet" type="text/css" href="styles/mobile_styles.css">
+	<link rel="stylesheet" type="text/css" href="styles/mobile_styles_v1.css">
 
 	<title>Can Opener: Open Your Mind!</title>
 
@@ -23,27 +23,25 @@
 	
 </head>
 <body>
-	<table>
-		<tr>
-			<td>
-				<div class="outer-wrapper">
-					<embed id="logo" src="images/mobile_logo.svg"></embed>
-					<embed id="can" src="images/mobile_can.svg"></embed>
-					<form autocomplete="off">
-						<select id="topic" name="topic" required="yes">
-							<option value="default">Choose a Topic</option>
-							<option value="abortion">Abortion</option>
-							<option value="gun_control">Gun Control</option>
-						</select>
-						<select id="side" name="side" required="yes">
-							<option value="default">Choose a Side</option>
-						</select>
-						<button id="submit" type="button">Open Your Can!</button>
-					</form>
-				</div>
-			</td>
-		</tr>
-	</table>
+	<div id="outer">
+		<div id="title">
+		<embed id="logo" src="images/mobile_logo.svg"></embed>
+		</div>
+		<div id="inner">
+			<embed id="can" src="images/mobile_can.svg"></embed>
+			<form autocomplete="off">
+				<select id="topic" name="topic" required="yes">
+					<option value="default">Choose a Topic</option>
+					<option value="abortion">Abortion</option>
+					<option value="gun_control">Gun Control</option>
+				</select>
+				<select id="side" name="side" required="yes">
+					<option value="default">Choose a Side</option>
+				</select>
+				<button id="submit" type="button">Open Your Can!</button>
+			</form>
+		</div>
+	</div>
 	<script src="scripts/mobile_main.js"></script>
 </body>
 </html>

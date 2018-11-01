@@ -28,7 +28,8 @@ body {
 	align-items: center;
 }
 #inner {
-	width: 100%;
+	width: 90%;
+	min-width: 50%;
 	height: 50%;
 	position: relative;
 	display: flex;

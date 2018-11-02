@@ -25,6 +25,10 @@
 
 </head>
 <script src="/socket.io/socket.io.js"></script>
+<script>
+	var socket = io();
+	socket.emit('newUser', topicValue, sideValue, roomValue);
+</script>
 <body>
 	<img id="gif" src="images/can_2.gif"></img>
 	<div class="text">

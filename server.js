@@ -7,20 +7,11 @@ app.listen(port, () => console.log(`App listening on port ${port}.`));
 
 app.use(express.static('public'));
 
-/*
-app.use((req, res, next) => {
-  if (req.header('x-forwarded-proto') !== 'https')
-    res.redirect(`https://${req.header('host')}${req.url}`)
-  else
-    next()
-});
-*/
-
 // GraphQL API
 var graphqlHTTP = require('express-graphql');
 var { buildSchema } = require('graphql');
 
-// Construct a schema, using GraphQL schema language
+// GraphQL Schema
 var schema = buildSchema(`
   type Query {
     getNum(topic: String!, side: String!): [String],
@@ -41,7 +32,7 @@ var gunForQueue = [];
 var gunAgaQueue = [];
 var gunNeuQueue = [];
 
-// Function for removing exited users
+// Function for removing users who have closed the browser tab or gone back while in waiting room
 function deleteArrayElement(array, value) {
   var i = 0;
   while (i < array.length) { 
@@ -52,9 +43,13 @@ function deleteArrayElement(array, value) {
   }
 }  
 
-// The root provides a resolver function for each API endpoint
+// GraphQL root provides a resolver function for each API endpoint
 var root = {
   getNum: function ({topic, side}) {
+    /* 
+    If there is no one in opposite queue, puts user in queue and returns 'unpaired' and a room number. 
+    If there is a person 'X' in opposite queue, removes X from opposite queue and returns 'paired' and X's room number.
+    */
     var output = [];
     // Abortion
     if (topic == 'abortion') {
@@ -105,6 +100,7 @@ var root = {
   },
 
   delNum: function ({topic, side, room}) {
+    // Removes a user from queue
     var output = ''
     // Abortion
     if (topic == 'abortion') {
@@ -151,6 +147,10 @@ var root = {
   },
 
   getPartner: function({topic, side, room}) {
+    /*
+    Returns 'unpaired' if the user is in queue and 'paired' if the user is not. 
+    This is because, if the user is not in the queue and they are still in the waiting room, they must have been paired up with another user. 
+    */
     var output = ''
     // Abortion
     if (topic == 'abortion') {
@@ -205,6 +205,7 @@ var root = {
   }
 }
 
+// Single endpoint at '/graphql'
 app.use('/graphql', graphqlHTTP({
 	schema: schema,
 	rootValue: root,

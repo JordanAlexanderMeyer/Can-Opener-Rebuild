@@ -4,12 +4,20 @@ var submit = document.getElementById('submit');
 var roomValue = '';
 var status = '';
 
+// Disable button initially
 document.getElementById("submit").disabled = true;
+
+// When topic is changed, add select options
 topic.addEventListener("change", populate);
+
+// When the side is changed, enable the button
 side.addEventListener("change", enableButton);
+
+// When button is pressed, run pressedSubmit
 submit.addEventListener("click", pressedSubmit);
 
 function pressedSubmit() {
+	// When user presses submit, send them to the appropriate place
 	var topicValue = topic.value;
 	var sideValue = side.value;
 	var query = `query GetNum($topicValue: String!, $sideValue: String!) {
@@ -40,7 +48,9 @@ function pressedSubmit() {
 
 }
 function roomChooser(topicValue, sideValue) {
+	// Decides where the user should be place: directly into videochat or in a waiting room
 	if (status == 'paired') {
+		//removing call room from use
 		//location.href = `call_room/index.html?topic=${topicValue}&side=${sideValue}&room=${roomValue}`;
 		location.href = `https://appr.tc/r/${roomValue}`;
 	} else if (status == 'unpaired') {
@@ -51,6 +61,7 @@ function roomChooser(topicValue, sideValue) {
 }
 
 function populate() {
+	// Adds 'side' select choices once a 'topic' has been chosen
 	side.innerHTML = "";
 	if(topic.value == "default") {
 		var optionArray = ["default|Choose a Side"];
@@ -70,6 +81,7 @@ function populate() {
 }
 
 function enableButton() {
+	// Enables button or disables it based on whether the form is completed or not
 	if(topic.value != 'default' && side.value != 'default') {
 		document.getElementById('submit').disabled = false;
 	} else {

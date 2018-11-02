@@ -1,9 +1,3 @@
-var urlParams = new URLSearchParams(window.location.search);
-var topicValue = urlParams.get('topic');
-var sideValue = urlParams.get('side');
-var roomValue = urlParams.get('room');
-var status = '';
-
 // Remove the user from queue if they leave the waiting room before being paired. Doesn't work on mobile!
 //window.onbeforeunload = removeFromQueue;
 

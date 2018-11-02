@@ -5,7 +5,11 @@ var roomValue = urlParams.get('room');
 var status = '';
 
 // Remove the user from queue if they leave the waiting room before being paired. Doesn't work on mobile!
-window.onbeforeunload = removeFromQueue;
+//window.onbeforeunload = removeFromQueue;
+
+// Sends topic, side, and room to server
+var socket = io();
+socket.emit('newUser', topicValue, sideValue, roomValue);
 
 // Runs function every 5 seconds
 window.setInterval(() => getPartner(), 5000);

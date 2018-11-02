@@ -1,11 +1,32 @@
 // Server Setup
-const express = require('express');
-const app = express();
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => console.log(`App listening on port ${port}.`));
+var express = require('express');
+var app = express();
+var port = process.env.PORT || 3000;
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 app.use(express.static('public'));
+
+// Socket.io 
+io.on('connection', function(socket) {
+  var topic = '';
+  var side = '';
+  var room = '';
+  socket.on('newUser', function(topicValue, sideValue, roomValue) {
+    topic = topicValue;
+    side = sideValue;
+    room = roomValue;
+  });
+  console.log('a user connected');
+  socket.on('disconnect', function() {
+    // Removes user from queue when they disconnect from the waiting room
+    console.log(topic, side, room);
+    root.delNum({topic, side, room});
+    console.log('user disconnected');
+    });
+});
+
+http.listen(port, () => console.log(`App listening on port ${port}.`));
 
 // GraphQL API
 var graphqlHTTP = require('express-graphql');
@@ -119,7 +140,7 @@ var root = {
           output = "User was already paired."
         }
       } else {
-        console.log('delNum error');
+        console.log('delNum error1');
       }
     // Gun Control
     } else if (topic == 'gun_control') {
@@ -138,10 +159,10 @@ var root = {
           output = "User was already paired."
         }
       } else {
-        console.log('delNum error');
+        console.log('delNum error2');
       }
     } else {
-      console.log('delNum error');
+      console.log('delNum error3');
     }
     return output;
   },

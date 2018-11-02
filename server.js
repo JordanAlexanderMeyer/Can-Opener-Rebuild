@@ -20,9 +20,7 @@ io.on('connection', function(socket) {
   console.log('a user connected');
   socket.on('disconnect', function() {
     // Removes user from queue when they disconnect from the waiting room
-    console.log(topic, side, room);
     root.delNum({topic, side, room});
-    console.log('user disconnected');
     });
 });
 
@@ -91,7 +89,7 @@ var root = {
           output = ['unpaired', newUser];
         }
       } else {
-        console.log('getNum error');
+        console.log('getNum error1');
       }
     // Gun Control
     } else if (topic == 'gun_control') {
@@ -112,10 +110,10 @@ var root = {
           output = ['unpaired', newUser];
         }
       } else {
-        console.log('getNum error');
+        console.log('getNum error2');
       }
     } else {
-      console.log('getNum error');
+      console.log('getNum error3');
     }
     return output; 
   },
@@ -188,7 +186,7 @@ var root = {
           output = "paired";
         }
       } else {
-        console.log('getPartner error');
+        console.log('getPartner error1');
       }
     // Gun Control
     } else if (topic == 'gun_control') {
@@ -205,10 +203,10 @@ var root = {
           output = "paired";
         }
       } else {
-        console.log('getPartner error');
+        console.log('getPartner error2');
       }
     } else {
-      console.log('getPartner error');
+      console.log('getPartner error3');
     }
     return output;
   },

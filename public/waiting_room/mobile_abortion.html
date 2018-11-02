@@ -30,7 +30,6 @@
 	var topicValue = urlParams.get('topic');
 	var sideValue = urlParams.get('side');
 	var roomValue = urlParams.get('room');
-	var status = '';
 	var socket = io();
 	socket.emit('newUser', topicValue, sideValue, roomValue);
 </script>

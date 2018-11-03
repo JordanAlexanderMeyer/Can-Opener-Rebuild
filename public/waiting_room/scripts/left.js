@@ -26,8 +26,8 @@ function getPartner() {
 		console.log(status);
 		if (status == 'paired') {
 			// Removed call room
-			location.href = `../call_room/index.html?topic=${topicValue}&side=${sideValue}&room=${roomValue}`;
-			//location.href = `https://appr.tc/r/${roomValue}`;
+			//location.href = `../call_room/index.html?topic=${topicValue}&side=${sideValue}&room=${roomValue}`;
+			location.href = `https://appr.tc/r/${roomValue}`;
 		}
 	})
 	.catch(function(error) {

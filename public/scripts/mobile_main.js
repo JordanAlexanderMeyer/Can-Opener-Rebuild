@@ -51,8 +51,8 @@ function roomChooser(topicValue, sideValue) {
 	// Decides where the user should be place: directly into videochat or in a waiting room
 	if (status == 'paired') {
 		//removing call room from use
-		location.href = `call_room/index.html?topic=${topicValue}&side=${sideValue}&room=${roomValue}`;
-		//location.href = `https://appr.tc/r/${roomValue}`;
+		//location.href = `call_room/index.html?topic=${topicValue}&side=${sideValue}&room=${roomValue}`;
+		location.href = `https://appr.tc/r/${roomValue}`;
 	} else if (status == 'unpaired') {
 		location.href = `waiting_room/mobile_${topicValue}.html?topic=${topicValue}&side=${sideValue}&room=${roomValue}`;
 	} else {

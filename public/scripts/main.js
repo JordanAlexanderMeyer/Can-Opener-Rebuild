@@ -3,18 +3,55 @@ var side = document.getElementById('side');
 var submit = document.getElementById('submit');
 var roomValue = '';
 var status = '';
+var sides = {};
 
 // Disable button initially
 document.getElementById("submit").disabled = true;
 
 // When topic is changed, add select options
-topic.addEventListener("change", populate);
+topic.addEventListener("change", populateSides);
 
 // When the side is changed, enable the button
 side.addEventListener("change", enableButton);
+topic.addEventListener("change", enableButton);
 
 // When button is pressed, run pressedSubmit
 submit.addEventListener("click", pressedSubmit);
+
+window.onload = getTopics();
+
+function getTopics() {
+	var query = `query GetTopics($roomValue: String) {
+		getTopics(room: $roomValue)
+	}`;
+
+	fetch('/graphql', {
+	 	method: 'POST',
+	 	headers: {
+	  		'Content-Type': 'application/json',
+	    	'Accept': 'application/json',
+	  	},
+	  	body: JSON.stringify({
+	    	query,
+	    	variables: { roomValue },
+	  	})
+	})
+	.then(r => r.json())
+	.then(function(data) {
+		// Add topics and sides to page
+		var response = data['data']['getTopics'];
+		var topics = [];
+
+		for (i = 0; i < response.length; i++) {
+			topics.push(response[i][0]);
+			sides[response[i][0]] = [response[i][1], response[i][2]]
+		};
+		populateTopics(topics);
+	})
+	.catch(function(error) {
+		console.log(error);
+	});
+}
 
 function pressedSubmit() {
 	// When user presses submit, send them to the appropriate place
@@ -60,24 +97,40 @@ function roomChooser(topicValue, sideValue) {
 	}
 }
 
-function populate() {
-	// Adds 'side' select choices once a 'topic' has been chosen
-	side.innerHTML = "";
-	if(topic.value == "default") {
-		var optionArray = ["default|Choose a Side"];
-	} else if(topic.value == "abortion") {
-		var optionArray = ["default|Choose a Side", "pro_life|Pro-Life", "pro_choice|Pro-Choice"];
-	} else if(topic.value == "gun_control") {
-		var optionArray = ["default|Choose a Side", "for|For", "against|Against"];
-	}
-	for(var option in optionArray) {
-		var pair = optionArray[option].split("|");
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function(txt){
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+}
+
+function populateTopics(topics) {
+	// Add topic options
+	for (i = 0; i < topics.length; i++) {
 		var newOption = document.createElement("option");
-		newOption.value = pair[0];
-		newOption.innerHTML = pair[1];
+		newOption.value = topics[i];
+		newOption.innerHTML = toTitleCase(topics[i].replace("_", " "));
+		topic.options.add(newOption);
+	}
+}
+
+function populateSides() {
+	// Clear previously added options
+	side.innerHTML = "";
+	for (i = 0; i < side.options.length; i++) {
+		side.options[i] = null;
+	}
+	// Add new options
+	var newOption = document.createElement("option");
+		newOption.value = "default";
+		newOption.innerHTML = "Choose a Side";
+		side.options.add(newOption);
+
+	for (i = 0; i < sides[topic.value].length; i++) {
+		var newOption = document.createElement("option");
+		newOption.value = sides[topic.value][i];
+		newOption.innerHTML = toTitleCase(sides[topic.value][i].replace("_", " "));
 		side.options.add(newOption);
 	}
-	enableButton();
 }
 
 function enableButton() {

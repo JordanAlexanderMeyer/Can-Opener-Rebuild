@@ -17,7 +17,6 @@ io.on('connection', function(socket) {
     side = sideValue;
     room = roomValue;
   });
-  console.log('a user connected');
   socket.on('disconnect', function() {
     // Removes user from queue when they disconnect from the waiting room
     root.delNum({topic, side, room});
@@ -33,23 +32,26 @@ var { buildSchema } = require('graphql');
 // GraphQL Schema
 var schema = buildSchema(`
   type Query {
+    getTopics(room: String): [[String]],
     getNum(topic: String!, side: String!): [String],
     delNum(topic: String!, side: String!, room: String!): String,
-    displayQueue: [[String]],
-    clearQueue: [[String]],
+    displayQueue: [[[String]]],
+    clearQueue: String,
     getPartner(topic: String!, side: String!, room: String!): String
   }
 `);
 
-// Create queues for abortion
-var abortionForQueue = [];
-var abortionAgaQueue = [];
-var abortionNeuQueue = [];
+// Topics
+var topics = {'abortion': ['pro_life', 'pro_choice'], 'gun_control': ['for', 'against']};
 
-// Create queues for gun_control
-var gunForQueue = [];
-var gunAgaQueue = [];
-var gunNeuQueue = [];
+// Queues
+var queues = {};
+
+// Create queues
+for (i = 0; i < Object.keys(topics).length; i++) {
+  var topic = Object.keys(topics)[i];
+  queues[topic] = [[], []];
+}
 
 // Function for removing users who have closed the browser tab or gone back while in waiting room
 function deleteArrayElement(array, value) {
@@ -64,105 +66,65 @@ function deleteArrayElement(array, value) {
 
 // GraphQL root provides a resolver function for each API endpoint
 var root = {
+  getTopics: function ({room}) {
+    var keys = Object.keys(topics);
+    var response = []; 
+    for (i = 0; i < keys.length; i++) {
+      var list = [];
+      list.push(keys[i]);
+      list.push(topics[keys[i]][0]);
+      list.push(topics[keys[i]][1]);
+      response.push(list);
+    }
+    return response;
+  },
+
   getNum: function ({topic, side}) {
     /* 
     If there is no one in opposite queue, puts user in queue and returns 'unpaired' and a room number. 
     If there is a person 'X' in opposite queue, removes X from opposite queue and returns 'paired' and X's room number.
     */
-    var output = [];
-    // Abortion
-    if (topic == 'abortion') {
-      if (side == 'pro_life') {
-        if (abortionForQueue.length != 0) {
-          output = ['paired', abortionForQueue.pop()];
-        } else {
-          var newUser = Math.random().toString().slice(2);
-          abortionAgaQueue.unshift(newUser);
-          output = ['unpaired', newUser];
-        }
-      } else if (side == 'pro_choice') {
-        if (abortionAgaQueue.length != 0) {
-          output = ['paired', abortionAgaQueue.pop()];
-        } else {
-          var newUser = Math.random().toString().slice(2);
-          abortionForQueue.unshift(newUser);
-          output = ['unpaired', newUser];
-        }
+
+    if (side == topics[topic][0]) {
+      if (queues[topic][1].length != 0) {
+        return ['paired', queues[topic][1].pop()];
       } else {
-        console.log('getNum error1');
+        var newUser = Math.random().toString().slice(2);
+        queues[topic][0].unshift(newUser);
+        return ['unpaired', newUser];
       }
-    // Gun Control
-    } else if (topic == 'gun_control') {
-      if (side == 'for') {
-        if (gunAgaQueue.length != 0) {
-          output = ['paired', gunAgaQueue.pop()];
-        } else {
-          var newUser = Math.random().toString().slice(2);
-          gunForQueue.unshift(newUser);
-          output = ['unpaired', newUser];
-        }
-      } else if (side == 'against') {
-        if (gunForQueue != 0) {
-          output = ['paired', gunForQueue.pop()];
-        } else {
-          var newUser = Math.random().toString().slice(2);
-          gunAgaQueue.unshift(newUser);
-          output = ['unpaired', newUser];
-        }
+    } else if (side == topics[topic][1]) {
+      if (queues[topic][0].length != 0) {
+        return ['paired', queues[topic][0].pop()];
       } else {
-        console.log('getNum error2');
+        var newUser = Math.random().toString().slice(2);
+        queues[topic][1].unshift(newUser);
+        return ['unpaired', newUser];
       }
     } else {
-      console.log('getNum error3');
+      console.log('getNum error');
     }
-    return output; 
   },
 
   delNum: function ({topic, side, room}) {
     // Removes a user from queue
-    var output = ''
-    // Abortion
-    if (topic == 'abortion') {
-      if (side == 'pro_life') {
-        if (abortionAgaQueue.includes(room)) {
-          deleteArrayElement(abortionAgaQueue, room);
-          output = "Room was deleted.";
-        } else {
-          output = "User was already paired."
-        }
-      } else if (side == 'pro_choice') {
-        if (abortionForQueue.includes(room)) {
-          deleteArrayElement(abortionForQueue, room);
-          output = "Room was deleted.";
-        } else {
-          output = "User was already paired."
-        }
+    if (side == topics[topic][0]) {
+      if (queues[topic][0].includes(room)) {
+        deleteArrayElement(queues[topic][0], room);
+        return "Room number was deleted"
       } else {
-        console.log('delNum error1');
+        return "Room number not found"
       }
-    // Gun Control
-    } else if (topic == 'gun_control') {
-      if (side == 'for') {
-        if (gunForQueue.includes(room)) {
-          deleteArrayElement(gunForQueue, room);
-          output = "Room was deleted.";
-        } else {
-          output = "User was already paired."
-        }
-      } else if (side == 'against') {
-        if (gunAgaQueue.includes(room)) {
-          deleteArrayElement(gunAgaQueue, room);
-          output = "Room was deleted.";
-        } else {
-          output = "User was already paired."
-        }
+    } else if (side == topics[topic][1]) {
+      if (queues[topic][1].includes(room)) {
+        deleteArrayElement(queues[topic][1], room);
+        return "Room number was deleted"
       } else {
-        console.log('delNum error2');
+        return "Room number not found"
       }
     } else {
-      console.log('delNum error3');
+      console.log('delNum error');
     }
-    return output;
   },
 
   getPartner: function({topic, side, room}) {
@@ -170,57 +132,43 @@ var root = {
     Returns 'unpaired' if the user is in queue and 'paired' if the user is not. 
     This is because, if the user is not in the queue and they are still in the waiting room, they must have been paired up with another user. 
     */
-    var output = ''
-    // Abortion
-    if (topic == 'abortion') {
-      if (side == 'pro_life') {
-        if (abortionAgaQueue.includes(room)) {
-          output = "unpaired";
-        } else {
-          output = "paired";
-        }
-      } else if (side == 'pro_choice') {
-        if (abortionForQueue.includes(room)) {
-          output = "unpaired";
-        } else {
-          output = "paired";
-        }
+
+    if (side == topics[topic][0]) {
+      if (queues[topic][0].includes(room)) {
+        return "unpaired"
       } else {
-        console.log('getPartner error1');
+        return "paired"
       }
-    // Gun Control
-    } else if (topic == 'gun_control') {
-      if (side == 'for') {
-        if (gunForQueue.includes(room)) {
-          output = "unpaired";
-        } else {
-          output = "paired";
-        }
-      } else if (side == 'against') {
-        if (gunAgaQueue.includes(room)) {
-          output = "unpaired";
-        } else {
-          output = "paired";
-        }
+    } else if (side == topics[topic][1]) {
+      if (queues[topic][1].includes(room)) {
+        return "unpaired"
       } else {
-        console.log('getPartner error2');
+        return "paired"
       }
     } else {
-      console.log('getPartner error3');
+      console.log('getPartner error');
     }
-    return output;
   },
 
   displayQueue: function() {
-    return [abortionForQueue, abortionAgaQueue, gunForQueue, gunAgaQueue];
+    var keys = Object.keys(queues);
+    var response = []; 
+    for (i = 0; i < keys.length; i++) {
+      var list = [];
+      list.push(queues[keys[i]][0]);
+      list.push(queues[keys[i]][1]);
+      response.push(list);
+    }
+    return response;
   },
   
   clearQueue: function() {
-  	abortionForQueue = [];
-  	abortionAgaQueue = [];
-  	gunForQueue = [];
-  	gunAgaQueue = [];
-  	return [abortionForQueue, abortionAgaQueue, gunForQueue, gunAgaQueue];
+    var keys = Object.keys(queues);
+  	for (i = 0; i < keys.length; i++) {
+      queues[keys[i]][0] = [];
+      queues[keys[i]][1] = [];
+    }
+    return 'cleared';
   }
 }
 
